@@ -1,13 +1,28 @@
 require('dotenv').config()
 const express = require('express');
 const router = express.Router();
+const fs= require('fs')
 const UserModel=require('../models/usersModel')
 const ApplicationModel=require('../models/applicationModel')
 const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
+const multer=require('multer')
+const userHelper=require('../Helpers/userHelpers')
 
 
-/* GET users listing. */
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './public')
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, 'companyLogo.jpg')
+//   }
+// })
+// let upload = multer({ storage: storage }).single('logo')
+
+
+// const upload=multer({dest:'public/company-logos'})
+// const uploadImage=upload.single('logo')
 
 router.post('/', (req, res, next) => {
   const token = req.cookies.jwt;
@@ -57,11 +72,6 @@ router.post('/signup',async function(req, res, next) {
 }
 });
 
-router.post('/application',async function(req, res, next){
- try{
-
- }catch(error){}
-})
 
 router.post('/login',async function(req, res, next){
   try{
@@ -81,7 +91,7 @@ router.post('/login',async function(req, res, next){
           maxAge : 3600*1000
       });
 
-        res.json({user: user.name, token:token, auth:true})
+        res.json({user: user, token:token, auth:true})
       }else{
         res.json('Incorrect password')
       }
@@ -91,5 +101,57 @@ router.post('/login',async function(req, res, next){
 }catch(error){}
 })
 
+router.post('/upload/:id',function(req, res, next){
+  const userId=req.params.id
+  req.body.userId=userId
+  // console.log(req.body);
+  ApplicationModel.create(req.body).then((response)=>{
+    UserModel.findOneAndUpdate({_id:userId},{$set:{isRegistered:true}}).then((data)=>{
+      console.log(data + 'FISRT LOGG');
+      data.isRegistered=true
+      console.log(data+ 'SECOND LOGG');
+
+      res.json(data)
+    }).catch((err)=>{
+      res.json(err)
+    })
+  }).catch((err)=>{
+    res.json(err)
+  })
+})
+
+
+// router.post('/upload/:id',function(req, res, next){
+//   try {
+
+//     upload(req, res, (err) => {
+//       let userId=req.params.id
+//       let formData = JSON.parse(req.body)
+//       console.table(formData)
+//       userHelper.formSubmission(formData,userId).then((response) => {
+//         const currentPath = path.join(__dirname, "../public", "companyLogo.jpg")
+//         const destinationPath = path.join(__dirname, "../public/logoImages", response.id + ".jpg")
+//         fs.rename(currentPath, destinationPath, function (error) {
+//           if (error) {
+//             throw error
+
+//           } else {
+//             // console.log('successfully mobved')
+//           }
+//         })
+//         res.status(200).json({ success: 'form submitted successfully' })
+//       })
+
+//       if (err instanceof multer.MulterError) {
+//         return res.status(500).json({ err: '12345' })
+//       } else if (err) {
+//         return res.status(500).json({ err: '54321' })
+//       }
+
+//     })
+//   } catch (error) {
+//     console.log(error)
+//   }
+// })
 
 module.exports = router;

@@ -41,6 +41,15 @@ router.get('/users', (req, res, next) => {
     }
   }catch(error){}
   })
+
+  router.get('/application', (req, res, next) => {
+    ApplicationModel.find({}).then((data)=>{
+      res.json({data:data});
+   }).catch(()=>{
+      let err='Something went wrong!'
+      res.json({err:err});
+   })
+   })
   
 
 module.exports = router;

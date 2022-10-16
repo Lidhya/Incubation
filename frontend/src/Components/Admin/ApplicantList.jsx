@@ -1,5 +1,6 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
+import Axios from 'axios';
 import Modal from 'react-modal'
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
@@ -25,6 +26,20 @@ const customStyles = {
 function ApplicantList() {
     Modal.setAppElement('#root')
     const [modal,setModal]=useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
+
+    useEffect(()=>{
+        Axios.get('http://localhost:4000/admin/applications').then((response)=>{
+            if(response.data)
+            {
+
+            }else{
+                setErrorMessage('Something went wrong')
+            }
+        })
+    })
+
+
     return (
         <div>
              <Modal  isOpen={modal} onRequestClose={()=>{setModal(false)}}  style={customStyles}>

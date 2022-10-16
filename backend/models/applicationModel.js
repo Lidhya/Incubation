@@ -33,10 +33,7 @@ const ApplicationSchema=new mongoose.Schema({
         type:String,
         required: true,
     },
-    company_logo:{
-        type:String,
-        required: true,
-    },
+    
     team_and_bg:{
         type:String,
         required: true,
@@ -102,3 +99,8 @@ const ApplicationSchema=new mongoose.Schema({
 const ApplicationModel=mongoose.model('application', ApplicationSchema)
 
 module.exports=ApplicationModel;
+
+// company_logo:{
+//     type:String,
+//     required: true,
+// },
