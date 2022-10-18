@@ -104,7 +104,7 @@ function Application() {
       </div>
       <div className=' flex justify-center my-8'>
         <form className='w-3/5'>
-      {errorMessage && <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert"> {errorMessage}</div>}
+      {errorMessage && <div className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert"> {errorMessage}</div>}
 
           <div className="grid md:grid-cols-2 md:gap-6">
             <div className="relative mb-6 w-full group">
@@ -144,7 +144,7 @@ function Application() {
           </div>
 
           <div className="mb-6">
-            <label for="large-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Describe your team and backgroung</label>
+            <label for="large-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Describe your team and background</label>
             <input type="text" id="team_and_bg" name='team_and_bg' onChange={(e) => handleChange(e)} className="block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
           </div>
           <div className="mb-6">

@@ -78,6 +78,7 @@ router.post('/login',async function(req, res, next){
   const {email, password} = req.body;
   const user = await UserModel.findOne({email});
   if(user) {
+    if(!user.isBlocked){  
       const auth = await bcrypt.compare(password, user.password);
       if (auth) {
         const id=user._id
@@ -95,6 +96,9 @@ router.post('/login',async function(req, res, next){
       }else{
         res.json('Incorrect password')
       }
+     }else{
+      res.json('Your account is blocked due to some reasons')
+     }
   }else{
     res.json('Email not registered')
   }
@@ -107,10 +111,7 @@ router.post('/upload/:id',function(req, res, next){
   // console.log(req.body);
   ApplicationModel.create(req.body).then((response)=>{
     UserModel.findOneAndUpdate({_id:userId},{$set:{isRegistered:true}}).then((data)=>{
-      console.log(data + 'FISRT LOGG');
       data.isRegistered=true
-      console.log(data+ 'SECOND LOGG');
-
       res.json(data)
     }).catch((err)=>{
       res.json(err)
@@ -119,6 +120,16 @@ router.post('/upload/:id',function(req, res, next){
     res.json(err)
   })
 })
+
+router.get('/application/:id', (req, res, next) => {
+  let userId=req.params.id
+  ApplicationModel.findOne({userId:userId}).then((data)=>{
+    res.json(data);
+ }).catch(()=>{
+    let err='Something went wrong!'
+    res.json({err:err});
+ })
+ })
 
 
 // router.post('/upload/:id',function(req, res, next){

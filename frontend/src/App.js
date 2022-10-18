@@ -1,6 +1,7 @@
 import React,{Fragment} from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import User from './Store/UserContext';
+import Applications from './Store/ApplicatonContext';
 
 import Home from './Pages/Home';
 import Admin from './Pages/Admin';
@@ -20,12 +21,13 @@ function App() {
   return (
     <Fragment>
       <User>
+      <Applications>
+
    <Router>
     <Routes>
       <Route exact path='/' element={<Home/>}/>  
       <Route path='/login' element={<LoginPage/>}/>  
       <Route path='/Signup' element={<SignupPage/>}/>    
-      {/* <Route path='/app' element={<Application/>}/>     */}
 
       <Route path='/admin/login' element={<AdminLogin/>}/>    
       <Route path='/admin' element={<Admin/>}/>    
@@ -36,6 +38,8 @@ function App() {
       <Route path='*' element={<Error/>}/>    
     </Routes>
    </Router>
+   </Applications>
+
    </User>
    </Fragment>
   );

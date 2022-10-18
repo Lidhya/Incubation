@@ -52,7 +52,7 @@ function Login() {
         <h5 className="text-xl font-medium text-gray-900 dark:text-white">Login to your account</h5>
         <i onClick={()=>navigate('/')} className="fa-solid fa-x"></i>
        </div> 
-       {errorMessage && <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert"> {errorMessage}</div>}
+       {errorMessage && <div className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert"> {errorMessage}</div>}
        <div>
             <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
             <input type="email" name="email" onChange={(e) => { setEmail(e.target.value) }} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required/>

@@ -90,6 +90,14 @@ const ApplicationSchema=new mongoose.Schema({
         type:Boolean,
         default: false,
     },
+    isDeclined:{
+        type:Boolean,
+        default: false,
+    },
+    slotId:{
+        type:String,
+        default: 'none',
+    },
     Updated:{
         type:Date,
         default: new Date(),

@@ -1,14 +1,14 @@
-import React,{Children, createContext, useState} from 'react'
+import React,{ createContext, useState} from 'react'
 
 export const ApplicationContext= createContext(null)
 
-function Applicatons({children}) {
-    const [applications, setApplication] = useState([])
+function Applications({children}) {
+    const [applications, setApplications] = useState('')
   return (
-    <ApplicationContext.Provider value={{applications, setApplication}}>
+    <ApplicationContext.Provider value={{applications, setApplications}}>
         {children}
     </ApplicationContext.Provider>
   )
 }
 
-export default Applicatons
+export default Applications
